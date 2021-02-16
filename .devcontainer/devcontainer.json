@@ -1,0 +1,30 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json
+{
+	"name": "Diagrams",
+    "dockerFile": "Dockerfile",
+	"extensions": [
+		"ms-azuretools.vscode-docker",
+		"ms-vscode.azurecli",
+		"ms-python.python",
+		"ms-python.vscode-pylance"
+	],
+	"settings": {
+		"remote.extensionKind": {
+			"ms-azuretools.vscode-docker": "workspace",
+			"ms-vscode.azurecli": "workspace",
+			"ms-python.python": "workspace",
+			"ms-python.vscode-pylance": "workspace"
+		},
+		"python.linting.pylintEnabled": true,
+		"python.linting.enabled": true,
+		"python.formatting.provider": "black",
+		"python.testing.pytestArgs": [
+			"--no-cov"
+		],
+		"editor.formatOnPaste": false,
+		"editor.formatOnSave": true,
+		"editor.formatOnType": true,
+		"files.trimTrailingWhitespace": true,
+		"terminal.integrated.shell.linux": "bash",
+	}
+}

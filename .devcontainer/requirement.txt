@@ -1,0 +1,6 @@
+black
+pylint
+flake8
+graphviz
+jinja2
+diagrams

@@ -6,7 +6,7 @@ from diagrams.azure.database import CacheForRedis, SQLDatabases
 from diagrams.azure.ml import MachineLearningServiceWorkspaces
 
 with Diagram("ML integrated into website", show=False, curvestyle="ortho"):
-    storage = SQLDatabases("Historical Data")
+    storage = DataLakeStorage("Historical Data")
 
     with Cluster("Modelling Pipeline"):
         ml_ws = MachineLearningServiceWorkspaces("ML Workspace")

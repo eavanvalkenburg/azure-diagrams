@@ -5,7 +5,6 @@ from diagrams.azure.storage import DataLakeStorage
 from diagrams.azure.database import CacheForRedis, SQLDatabases, CosmosDb
 from diagrams.azure.ml import MachineLearningServiceWorkspaces
 
-
 graph_attr = {
     "layout": "neato",
     "mode": "major",
@@ -22,8 +21,9 @@ with Diagram(
     graph_attr=graph_attr,
 ):
     storage = DataLakeStorage("Historical Data", pin="true", pos="0,4")
+    live_storage = CosmosDb("Live data", pin="true", pos="3,-3")
 
-    with Cluster(label="Modelling Pipeline"):
+    with Cluster("Modelling Pipeline"):
         ml_ws = MachineLearningServiceWorkspaces("ML Workspace", pin="true", pos="0,8")
         acr = ContainerRegistries("Container Registry", pin="true", pos="3,8")
 
@@ -46,9 +46,11 @@ with Diagram(
     storage << Edge(label="Read Training data", color="blue") << ml_ws >> Edge(
         label="Image with trained model", style="dashed"
     ) >> acr
-    storage << Edge(label="Read Daily", color="blue") << cache_function >> Edge(
+    live_storage << Edge(label="Read Daily", color="blue") << cache_function >> Edge(
         label="Daily", color="blue"
     ) >> cache
+    live_storage << Edge(label="Live data connection") << website
+    live_storage >> Edge(label="Archive") >> storage
 
     # container image
     acr >> Edge(style="dashed", label="Deploy image") >> scoring_container
